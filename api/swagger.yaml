@@ -1,0 +1,636 @@
+---
+swagger: "2.0"
+info:
+  description: "API for accessing and updating user and contact information in the\
+    \ Guardian App"
+  version: "1.0.0"
+  title: "Guardian API"
+  x-gist-id: "74e4171adefa0f80bf5c"
+  x-gist-filename: "guardian-api-swagger.json"
+  x-gist-description: "Guardian API (Swagger v1)"
+host: "guardian-api-mock.herokuapp.com"
+basePath: "/"
+schemes:
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /contacts:
+    get:
+      tags:
+      - "contact"
+      summary: "Retrieves a contact entity"
+      operationId: "contactsGet"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "username"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "mobile"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "email"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "timezone"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "The list of contacts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/contactResponse"
+      x-swagger-router-controller: "Contact"
+    post:
+      tags:
+      - "contact"
+      summary: "Create a new contact"
+      operationId: "contactsPost"
+      parameters:
+      - in: "body"
+        name: "contact"
+        description: "The user"
+        required: true
+        schema:
+          $ref: "#/definitions/contactRequest"
+      responses:
+        201:
+          description: "The contact has been created"
+      x-swagger-router-controller: "Contact"
+  /contacts/{contactId}:
+    get:
+      tags:
+      - "contact"
+      summary: "Retrieves a single contact entity"
+      operationId: "contactsContactIdGet"
+      parameters:
+      - name: "contactId"
+        in: "path"
+        description: "The contacts's ID to query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "The contact object"
+          schema:
+            $ref: "#/definitions/contactResponse"
+      x-swagger-router-controller: "Contact"
+    put:
+      tags:
+      - "contact"
+      summary: "Updates a contact entity"
+      operationId: "contactsContactIdPut"
+      parameters:
+      - name: "contactId"
+        in: "path"
+        description: "The contact's ID to query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "contact"
+        description: "The contact"
+        required: true
+        schema:
+          $ref: "#/definitions/contactRequest"
+      responses:
+        200:
+          description: "The contact object that was updated"
+          schema:
+            $ref: "#/definitions/contactResponse"
+      x-swagger-router-controller: "Contact"
+    delete:
+      tags:
+      - "contact"
+      summary: "Updates a contact entity"
+      operationId: "contactsContactIdDelete"
+      parameters:
+      - name: "contactId"
+        in: "path"
+        description: "The contact's ID to delete"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "The contact object has been deleted"
+      x-swagger-router-controller: "Contact"
+    patch:
+      tags:
+      - "contact"
+      summary: "Updates a single field on a contact entity"
+      operationId: "contactsContactIdPatch"
+      parameters:
+      - name: "contactId"
+        in: "path"
+        description: "The contact's ID to query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "contact"
+        description: "The contact"
+        required: true
+        schema:
+          $ref: "#/definitions/contactRequest"
+      responses:
+        200:
+          description: "The contact object that was updated"
+          schema:
+            $ref: "#/definitions/contactResponse"
+      x-swagger-router-controller: "Contact"
+  /users:
+    get:
+      tags:
+      - "user"
+      summary: "Retrieves a user entity"
+      operationId: "usersGet"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "username"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "mobile"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "email"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "timezone"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "The list of users"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/userResponse"
+      x-swagger-router-controller: "User"
+    post:
+      tags:
+      - "user"
+      summary: "Create a new user"
+      operationId: "usersPost"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "The user"
+        required: true
+        schema:
+          $ref: "#/definitions/userRequest"
+      responses:
+        201:
+          description: "The user has been created"
+      x-swagger-router-controller: "User"
+  /users/{userId}:
+    get:
+      tags:
+      - "user"
+      summary: "Retrieves a single user entity"
+      operationId: "usersUserIdGet"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The user's ID to query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "The user object"
+          schema:
+            $ref: "#/definitions/userResponse"
+      x-swagger-router-controller: "User"
+    put:
+      tags:
+      - "user"
+      summary: "Updates a user entity"
+      operationId: "usersUserIdPut"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The user's ID to query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "user"
+        description: "The user"
+        required: true
+        schema:
+          $ref: "#/definitions/userRequest"
+      responses:
+        200:
+          description: "The user object that was updated"
+          schema:
+            $ref: "#/definitions/userResponse"
+      x-swagger-router-controller: "User"
+    delete:
+      tags:
+      - "user"
+      summary: "Updates a user entity"
+      operationId: "usersUserIdDelete"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The user's ID to delete"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "The user object has been deleted"
+      x-swagger-router-controller: "User"
+    patch:
+      tags:
+      - "user"
+      summary: "Updates a single field on a user entity"
+      operationId: "usersUserIdPatch"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The user's ID to query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "user"
+        description: "The user"
+        required: true
+        schema:
+          $ref: "#/definitions/userRequest"
+      responses:
+        200:
+          description: "The user object that was updated"
+          schema:
+            $ref: "#/definitions/userResponse"
+      x-swagger-router-controller: "User"
+  /users/{userId}/contacts:
+    get:
+      tags:
+      - "contact"
+      summary: "Retrieves a list of contacts associated to a user"
+      operationId: "usersUserIdContactsGet"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "username"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "mobile"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "email"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "timezone"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "The list of contacts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/contactResponse"
+      x-swagger-router-controller: "Contact"
+    post:
+      tags:
+      - "contact"
+      summary: "Create a contact association with a user"
+      operationId: "usersUserIdContactsPost"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The user id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "contactMapping"
+        description: "The Contact object to create"
+        required: true
+        schema:
+          $ref: "#/definitions/contactMappingRequest"
+      responses:
+        201:
+          description: "The contact has been mapped to this user"
+      x-swagger-router-controller: "Contact"
+  /users/{userId}/templates:
+    get:
+      tags:
+      - "template"
+      summary: "Retrieve a list of templates for a user"
+      description: "Retrieve a list of templates for a user"
+      operationId: "usersUserIdTemplatesGet"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "The list of templates"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/templateResponse"
+      x-swagger-router-controller: "Template"
+    post:
+      tags:
+      - "template"
+      summary: "Create a new template for the user"
+      operationId: "usersUserIdTemplatesPost"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "template"
+        required: true
+        schema:
+          $ref: "#/definitions/templateRequest"
+      responses:
+        201:
+          description: "The template has been created"
+          schema:
+            $ref: "#/definitions/templateResponse"
+      x-swagger-router-controller: "Template"
+  /users/{userId}/templates/{templateId}:
+    get:
+      tags:
+      - "template"
+      summary: "Retrieves a single template entity"
+      operationId: "usersUserIdTemplatesTemplateIdGet"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "templateId"
+        in: "path"
+        description: "The templates's ID to query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "The template object"
+          schema:
+            $ref: "#/definitions/templateResponse"
+      x-swagger-router-controller: "Template"
+    put:
+      tags:
+      - "template"
+      summary: "Updates a template entity"
+      operationId: "usersUserIdTemplatesTemplateIdPut"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "templateId"
+        in: "path"
+        description: "The template's ID to query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "template"
+        description: "The template"
+        required: true
+        schema:
+          $ref: "#/definitions/templateRequest"
+      responses:
+        200:
+          description: "The template object that was updated"
+          schema:
+            $ref: "#/definitions/templateResponse"
+      x-swagger-router-controller: "Template"
+    delete:
+      tags:
+      - "template"
+      summary: "Updates a template entity"
+      operationId: "usersUserIdTemplatesTemplateIdDelete"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "templateId"
+        in: "path"
+        description: "The template's ID to delete"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "The template object has been deleted"
+      x-swagger-router-controller: "Template"
+    patch:
+      tags:
+      - "template"
+      summary: "Updates a single field on a template entity"
+      operationId: "usersUserIdTemplatesTemplateIdPatch"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "templateId"
+        in: "path"
+        description: "The template's ID to query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "template"
+        description: "The template"
+        required: true
+        schema:
+          $ref: "#/definitions/templateRequest"
+      responses:
+        200:
+          description: "The template object that was updated"
+          schema:
+            $ref: "#/definitions/templateResponse"
+      x-swagger-router-controller: "Template"
+definitions:
+  userRequest:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        title: "The username"
+      password:
+        type: "string"
+        title: "The password"
+      name:
+        type: "string"
+        title: "The users name"
+      email:
+        type: "string"
+        title: "The users email"
+      mobile:
+        type: "string"
+        title: "The users mobile"
+      country:
+        type: "string"
+        title: "The users country"
+      timezone:
+        type: "string"
+        title: "The users timezone"
+  userResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        title: "The ID of the created user"
+      username:
+        type: "string"
+        title: "The username"
+      name:
+        type: "string"
+        title: "The users name"
+      email:
+        type: "string"
+        title: "The users email"
+      mobile:
+        type: "string"
+        title: "The users mobile"
+      country:
+        type: "string"
+        title: "The users country"
+      timezone:
+        type: "string"
+        title: "The users timezone"
+      createdTime:
+        type: "string"
+        title: "The datetime that the user was created"
+      updatedTime:
+        type: "string"
+        title: "The datetime that the user was last updated"
+  contactRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        title: "The contacts name"
+      email:
+        type: "string"
+        title: "The contacts email"
+      mobile:
+        type: "string"
+        title: "The contacts mobile"
+      country:
+        type: "string"
+        title: "The contacts country"
+      timezone:
+        type: "string"
+        title: "The contacts timezone"
+  contactResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        title: "The ID of this contact"
+      name:
+        type: "string"
+        title: "The contacts name"
+      email:
+        type: "string"
+        title: "The contacts email"
+      mobile:
+        type: "string"
+        title: "The contacts mobile"
+      country:
+        type: "string"
+        title: "The contacts country"
+      timezone:
+        type: "string"
+        title: "The contacts timezone"
+      createdTime:
+        type: "string"
+        title: "The datetime that the contact was created"
+      updatedTime:
+        type: "string"
+        title: "The datetime that the contact was last updated"
+  contactMappingRequest:
+    type: "object"
+    properties:
+      contactId:
+        type: "string"
+        title: "The ID of the contact to map."
+      priority:
+        type: "number"
+        format: "int32"
+        title: "The priority of this contact within this user"
+  templateRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        title: "The name of the template"
+      sms:
+        type: "string"
+        title: "The content to be sent via SMS"
+      voice:
+        type: "string"
+        title: "The content to be sent via voice."
+      userId:
+        type: "string"
+        title: "The userID that is creating this template"
+  templateResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        title: "The id of the template"
+      name:
+        type: "string"
+        title: "The name of the template"
+      sms:
+        type: "string"
+        title: "The content to be sent via SMS"
+      voice:
+        type: "string"
+        title: "The content to be sent via voice."
+      userId:
+        type: "string"
+        title: "The user that created this template"
+      createdTime:
+        type: "string"
+        title: "The datetime that the contact was created"
+      updatedTime:
+        type: "string"
+        title: "The datetime that the contact was last updated"
